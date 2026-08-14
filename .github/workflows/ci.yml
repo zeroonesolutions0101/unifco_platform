@@ -15,11 +15,16 @@ jobs:
         with:
           php-version: '8.3'
           coverage: none
+      - name: Prepare Laravel writable directories
+        run: |
+          mkdir -p bootstrap/cache
+          mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
       - name: Prepare environment
         run: |
           cp .env.example .env
+          mkdir -p database
           touch database/database.sqlite
           php artisan key:generate
       - name: Run migrations

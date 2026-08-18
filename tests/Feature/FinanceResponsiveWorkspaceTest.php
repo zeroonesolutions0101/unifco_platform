@@ -22,6 +22,7 @@ class FinanceResponsiveWorkspaceTest extends TestCase
 
         $this->actingAs($user)->get('/modules/finance')
             ->assertOk()
+            ->assertSee('Finance workspace')
             ->assertSee('Financial control at a glance')
             ->assertSee('JE-001')
             ->assertSee('4,500.00')

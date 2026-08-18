@@ -7,7 +7,7 @@
 </style>
 <div class="finance-shell">
   <section class="finance-hero">
-    <div><div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#bfcbe0;margin-bottom:7px">UNIFCO Finance Workspace</div><h1>Financial control at a glance</h1><p>Journals, receivables, payables and core finance operations in one responsive workspace.</p></div>
+    <div><div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#bfcbe0;margin-bottom:7px">Finance workspace</div><h1>Financial control at a glance</h1><p>Journals, receivables, payables and core finance operations in one responsive workspace.</p></div>
     <div class="finance-hero-actions"><a class="btn primary" href="{{ route('finance.journals.create') }}">New Journal</a><a class="btn" href="{{ route('finance.core.index') }}">Finance Core</a></div>
   </section>
   <section class="finance-metrics">

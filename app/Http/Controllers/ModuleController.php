@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Asset,Customer,Employee,Item,Journal,Project,PurchaseOrder,ProductionOrder,WorkOrder};
+use App\Models\{Asset,Customer,Employee,FinancialDocument,Item,Journal,Project,PurchaseOrder,ProductionOrder,WorkOrder};
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -25,6 +25,22 @@ class ModuleController extends Controller
         abort_unless(isset(self::MODULES[$module]), 404);
         [$model,$title,$key,$secondary] = self::MODULES[$module];
         $records = $model::query()->latest('id')->paginate(20)->withQueryString();
+
+        if ($module === 'finance') {
+            $financeMetrics = [
+                'journals' => Journal::query()->count(),
+                'posted_journals' => Journal::query()->where('status', 'POSTED')->count(),
+                'open_receivables' => (float) FinancialDocument::query()
+                    ->where('document_type', 'AR_INVOICE')
+                    ->sum('open_amount'),
+                'open_payables' => (float) FinancialDocument::query()
+                    ->where('document_type', 'AP_INVOICE')
+                    ->sum('open_amount'),
+            ];
+
+            return view('modules.finance', compact('module','title','key','secondary','records','financeMetrics'));
+        }
+
         return view('modules.index', compact('module','title','key','secondary','records'));
     }
 }

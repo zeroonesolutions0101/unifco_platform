@@ -1,0 +1,2 @@
+probe=implementation/actions-recovery-test
+purpose=verify GitHub Actions workflow registry outside main
